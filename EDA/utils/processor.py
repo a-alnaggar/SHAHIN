@@ -14,7 +14,9 @@ class ArProcessor:
     Class for processing and normalizing arabic text.
     """
 
-    def __int__(self, stopwords_path="../data/stop_words_arabic.txt"):
+    def __init__(
+        self, stopwords_path="/home/naggar/repos/Optimus/EDA/data/stop_words_arabic.txt"
+    ):
         self.ar_stopwords = (
             self.read_arabic_stop_words(stopwords_path) if stopwords_path else []
         )
@@ -79,7 +81,7 @@ class ArProcessor:
 
         return cleaned_text
 
-    def get_count(self, chunk: DataFrame, col: str) -> Series[float, str]:
+    def get_count(self, chunk: DataFrame, col: str) -> Series:
         """
         Extracts word counts from a dataframe column.
         :param chunk: Dataframe chunk.
