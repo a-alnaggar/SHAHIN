@@ -33,7 +33,7 @@ class ArProcessor:
     def read_arabic_stop_words(file_path: str) -> Set[str]:
         """
         Reads a text file of stop words
-        :param file_path: Stop words text file path.
+        :param file_path:  text file path.
         :return: Set of stop words.
         """
         with open(file_path, "r", encoding="utf-8") as file:

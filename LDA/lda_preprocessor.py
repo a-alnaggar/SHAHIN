@@ -1,15 +1,16 @@
 import gensim
 
 from gensim.models.phrases import Phraser
+from pandas import DataFrame
 from typing import List
 
 
-from processor import ArProcessor
+from utils.processor import ArProcessor
 
 
 class LDATrainer:
     def __init__(self):
-        ar_processor = ArProcessor()
+        self.ar_processor = ArProcessor()
 
     @staticmethod
     def bi_grams_model(words: List[List[str]], bi_min: int = 15) -> Phraser:
@@ -23,8 +24,21 @@ class LDATrainer:
         bi_gram_mod = Phraser(bi_gram)
         return bi_gram_mod
 
+    def process_text(self, df: DataFrame, text_col: str) -> List[str]:
+        """
+        Process text for building LDA corpora.
+        :param df: Dataframe object.
+        :param text_col: Column name that contains text to process.
+        :return: Nested List of tokenized words.
+        """
+        processed_col = df[text_col].apply(
+            self.ar_processor.preprocess_arabic_text, args=True
+        )
+        return processed_col.to_list()
+
     # def get_corpus(self, df, text_col):
-    #     df["text"] = strip_newline(df.text)
+    #     tokens = []
+    #     df[text_col] = strip_newline(df.text)
     #     words = list(sent_to_words(df.text))
     #     words = remove_stopwords(words)
     #     bigram_mod = bigrams(words)
