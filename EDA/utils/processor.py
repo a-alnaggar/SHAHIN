@@ -6,7 +6,7 @@ from pandas import DataFrame
 from pandas import Series
 from nltk.corpus import stopwords
 
-from typing import Set
+from typing import Set, Union, List
 
 
 class ArProcessor:
@@ -40,7 +40,9 @@ class ArProcessor:
             stop_words = {word.strip() for word in file}
         return stop_words
 
-    def preprocess_arabic_text(self, text: str) -> str:
+    def preprocess_arabic_text(
+        self, text: str, tokenized: bool = False
+    ) -> Union[str, List[str]]:
         """
         Preprocessing pipeline for arabic text.
         remove punctuation -> normalize letters -> tokenize -> omit stopwords
@@ -75,6 +77,9 @@ class ArProcessor:
         filtered_words = [
             word for word in words if word.lower() not in stop_words and len(word) > 1
         ]
+        # Return is tokens if specified
+        if tokenized:
+            return filtered_words
 
         # Join the filtered words back into a single string
         cleaned_text = " ".join(filtered_words)

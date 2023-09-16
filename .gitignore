@@ -1,3 +1,5 @@
 *.csv
 *.zip
-.ipynb_*
+**/.ipynb_checkpoints/
+.idea/
+/EDA/data/.ipynb_checkpoints/
