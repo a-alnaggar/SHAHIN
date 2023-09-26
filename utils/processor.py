@@ -47,7 +47,6 @@ class ArProcessor:
         Preprocessing pipeline for arabic text.
         remove punctuation -> normalize letters -> tokenize -> omit stopwords
         """
-
         # Remove punctuation
         text = self.remove_punctuation(text)
 
@@ -68,8 +67,12 @@ class ArProcessor:
         english_stop_words = set(stopwords.words("english"))
 
         # Load Arabic stop words
-        arabic_stop_words = self.read_arabic_stop_words("data/stop_words_arabic.txt")
-
+        if not self.ar_stopwords:
+            arabic_stop_words = self.read_arabic_stop_words(
+                "data/stop_words_arabic.txt"
+            )
+        else:
+            arabic_stop_words = self.ar_stopwords
         # Combine both stop word sets
         stop_words = arabic_stop_words.union(english_stop_words)
 
